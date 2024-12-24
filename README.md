@@ -20,7 +20,7 @@ To get the project on your PC, follow the steps:
    Extract the contents to your desired directory.
 
 3. **Clone the Repository**
-   Write the following command to get a conenction to a remate repository:
+   Write the following command to get a connection to a remote repository:
    ```bash
    git clone https://github.com/Whisky04/ChillCleanBot.git
    ```
