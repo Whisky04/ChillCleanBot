@@ -22,7 +22,6 @@ class Main:
             # Console output    
             print("Bot is running...")
             application.run_polling()
-            print("Check")
 
         except Exception as e:
             logging.error(f"An error occurred: {e}", exc_info=True)
