@@ -19,18 +19,13 @@ To get the project on your PC, follow the steps:
 2. **Extract the ZIP file:**
    Extract the contents to your desired directory.
 
-3. **Initialize Git in the directory:**
-   Open any console and navigate to the project folder. Then run:
+3. **Clone the Repository**
+   Write the following command to get a conenction to a remate repository:
    ```bash
-   git init
+   git clone https://github.com/Whisky04/ChillCleanBot.git
    ```
 
-4. **Add the remote repository:**
-   ```bash
-   git remote add origin https://github.com/Whisky04/ChillCleanBot.git
-   ```
-
-5. **Check the project in VSCode:**
+4. **Check the project in VSCode:**
    Open Visual Studio Code and load the project folder to start working on it. Check if you have a connection to the remote repository in Source Control tab. Alternitavely, write in the same console the following command:
    ```bash
    git remote -v
