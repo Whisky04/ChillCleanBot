@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "telebot"
+version = "0.1.0"
+description = ""
+authors = ["Daniil <daniil.panasenko.04@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+python-telegram-bot = "^20.3"
+python-dotenv = "^1.0.1"
+watchfiles = "^1.0.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
