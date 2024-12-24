@@ -1,4 +1,5 @@
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler
+from telegram import BotCommand
 from dotenv import load_dotenv
 import os
 import logging
@@ -19,6 +20,10 @@ class Main:
             application.add_handler(CommandHandler('start', Main_Menu.start))
             application.add_handler(CallbackQueryHandler(Main_Menu.button_callback))
 
+            # Установка команд для выпадающего меню
+            async def setup():
+                await set_commands(application)
+
             # Console output    
             print("Bot is running...")
             application.run_polling()
@@ -26,6 +31,14 @@ class Main:
         except Exception as e:
             logging.error(f"An error occurred: {e}", exc_info=True)
             print("Bot encountered an error. Check logs for details.")
+
+async def set_commands(application):
+    """Устанавливает команды для выпадающего меню."""
+    commands = [
+        BotCommand("start", "Запустить бота"),
+    ]
+    await application.bot.set_my_commands(commands)
+    print("Commands successfully set!")
 
 if __name__ == "__main__":
     load_dotenv()
