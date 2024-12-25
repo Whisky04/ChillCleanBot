@@ -3,3 +3,5 @@ venv
 requirements.txt
 __pycache__
 .env
+
+dbmanual.py
