@@ -20,7 +20,7 @@ class Main:
             application.add_handler(CommandHandler('start', Main_Menu.start))
             application.add_handler(CallbackQueryHandler(Main_Menu.button_callback))
 
-            # Установка команд для выпадающего меню
+            # Setting commands for the drop-down menu
             async def setup():
                 await set_commands(application)
 
@@ -33,9 +33,9 @@ class Main:
             print("Bot encountered an error. Check logs for details.")
 
 async def set_commands(application):
-    """Устанавливает команды для выпадающего меню."""
+    """Sets the commands for the drop-down menu."""
     commands = [
-        BotCommand("start", "Запустить бота"),
+        BotCommand("start", "Start bot"),
     ]
     await application.bot.set_my_commands(commands)
     print("Commands successfully set!")
