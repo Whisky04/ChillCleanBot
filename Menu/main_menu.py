@@ -2,7 +2,7 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ContextTypes
 
 
-class Main_Menu:
+class Casual_Main_Menu:
     @staticmethod
     async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         # Define the menu buttons
@@ -19,3 +19,5 @@ class Main_Menu:
 
         if query.data == 'click_me':
             await query.edit_message_text(text="Hello World!")
+
+#class Admin_Main_Menu(Casual_Main_Menu):
