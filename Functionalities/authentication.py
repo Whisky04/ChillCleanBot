@@ -14,7 +14,9 @@ async def get_telegram_user_id_in_database(update: Update, context: CallbackCont
     Check if the Telegram user exists in the database.
     """
     user_id = await get_telegram_user_id(update, context)
-    print(f"Check ID in database: {user_id}")
+    # Logging output of user id  
+    print("-----------------------------------------------------------------------------")
+    print(f"Check user's ID in 'Check ID in database': {user_id}")
     return is_user_in_database(user_id)
 
 async def get_check_user_is_admin(update: Update, context: CallbackContext) -> None:
@@ -22,5 +24,6 @@ async def get_check_user_is_admin(update: Update, context: CallbackContext) -> N
     Check if the user has admin privileges and notify them if they do.
     """
     user_id = await get_telegram_user_id(update, context)
-    print(f"Check if user is admin: {user_id}")
+    # Logging output of user id
+    print(f"Check user's ID in 'Check if user is admin': {user_id}")
     return is_user_admin(user_id)
