@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import os
 
 # Database connection parameters
-load_dotenv('../.env')
+load_dotenv('.env')
 db_params = {
     'dbname': os.getenv('DB_NAME'),
     'user': os.getenv('DB_USER'),
