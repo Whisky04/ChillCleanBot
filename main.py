@@ -33,18 +33,18 @@ class Main:
             logging.error(f"An error occurred: {e}", exc_info=True)
 
     async def start(self, update: Update, context: CallbackContext) -> None:
-        #Check if the user is in database
+        # Check if the user is in database
         user_exists = await get_telegram_user_id_in_database(update, context)
         # Check if the user has admin privileges
         user_is_admin = await get_check_user_is_admin(update, context)
 
         if user_exists:
             if user_is_admin:
-                # Show admin main menu
+                # Show admin_user main menu
                 # await Admin_Main_Menu.start(update, context)
                 await update.message.reply_text("You are logged as administrator.")
             else: 
-                #Show casual main menu
+                # Show casual_user main menu
                 await Casual_Main_Menu.start(update, context)
         else:
             # Show authentication error

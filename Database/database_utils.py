@@ -28,7 +28,7 @@ def is_user_in_database(user_id: int) -> bool:
         result = cursor.fetchone()
 
         if result is not None:  # Check if fetchone returned a result
-            user_name = result[0]  # Assuming user_name is in the first column
+            user_name = result[0]
             print(f"User with ID {user_id} and name {user_name} has started the bot usage.")
             return True
         else:
