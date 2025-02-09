@@ -12,63 +12,60 @@
 ## Installation
 
 To get the project on your PC, follow the steps:
+1. **Choose desired directory.**
+In your console change directory to a desired one, where you want the project to be installed.
 
-1. **Download the ZIP file:**
-   Go to the repository page and click on "Code" > "Download ZIP."
-
-2. **Extract the ZIP file:**
-   Extract the contents to your desired directory.
-
-3. **Clone the Repository**
-   Write the following command to get a connection to a remote repository:
-   ```bash
-   git clone https://github.com/Whisky04/ChillCleanBot.git
-   ```
-
-4. **Check the project in VSCode:**
-   Open Visual Studio Code and load the project folder to start working on it. Check if you have a connection to the remote repository in Source Control tab. Alternitavely, write in the same console the following command:
-   ```bash
-   git remote -v
-   ```
-   If you see error - ask Danylo or ChatGPT
+2. **Clone the Repository.**
+Create a SSH-key, if not created yet. Write the following command to install and get a connection to a remote repository:
+```bash
+git clone git@github.com:Whisky04/ChillCleanBot.git
+```
+After cloning, the project will be installed in the desired directory on your PC.
+   
+3. **Check the remote repository connection.**
+Write in the same console the following command:
+```bash
+git remote -v
+```
+If you see error - ask Danylo.
 
 ## Running the Bot
 
 Down here it is described how to run the bot on your machine.
 
-1. **Change Working Directiry:** 
-   Navigate to the location of the project in your console.
+1. **Change working directory.** 
+Navigate to a location of a root of the project in your console.
 
-2. **Create a Virtual Environemtn:**
-   Write the following command in the console to create a Virtual Environment:
-   ```bash
-   python -m venv .venv
-   ```
+2. **Create a Virtual Environment.**
+Write the following command in the console to create a Virtual Environment:
+```bash
+python -m venv .venv
+```
 
-3. **Activate the Virtual Environment:**
-   Write the following command to activate the Virtual Environment:
-   
-   For Windows:
-   ```bash
-   .venv\Scripts\activate
-   ```
+3. **Activate the Virtual Environment.**
+Write the following command to activate the Virtual Environment:
 
-   For Linux/MacOS:
-   ```bash
-   source .venv/bin/activate
-   ```
+For Windows:
+```bash
+.venv\Scripts\activate
+```
 
-4. **Installing of Project's Dependencies:**
-   To isntall project's libraries and dependencies, write the following command in the console:
-   ```bash
-   poetry install
-   ```
+For Linux/MacOS:
+```bash
+source .venv/bin/activate
+```
 
-5. **Running the Bot**
-   To initialize and run the bot, write the following in the root directory of the project:
-   ```bash
-   python main.py
-   ```
+4. **Installation of Project's Dependencies.**
+To isntall project's libraries and dependencies, write the following command in the console:
+```bash
+poetry install
+```
+
+5. **Running the Bot.**
+To initialize and run the bot, write the following in the root directory of the project:
+```bash
+python main.py
+```
 
 ## Structure of the Project
 
@@ -86,9 +83,11 @@ There are described what are the packages in the project's repository.
 
 ## Branching Strategy
 
-This section describes how to create proper naming for a new branch.
+This section describes how to create a proper naming for a new branch.
   
-**Structure of the naming:**
+**Structure of the naming.**
+
+Name the branch in the following way: 
 ```bash
 <prefix>/<issue-id>-<short-description>
 ```
