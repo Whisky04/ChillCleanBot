@@ -8,6 +8,7 @@
 
 1. Python version 3.11
 2. Poetry is installed
+3. Docker is installed
 
 ## Installation
 
@@ -16,34 +17,43 @@ To get the project on your PC, follow the steps:
 In your console change directory to a desired one, where you want the project to be installed.
 
 2. **Clone the Repository.**
-Create a SSH-key, if not created yet. Write the following command to install and get a connection to a remote repository:
+Create an SSH-key, if not created yet. Run the following command to install and get a connection to a remote repository:
 ```bash
 git clone git@github.com:Whisky04/ChillCleanBot.git
 ```
 After cloning, the project will be installed in the desired directory on your PC.
    
 3. **Check the remote repository connection.**
-Write in the same console the following command:
+Run the following command in the console:
 ```bash
 git remote -v
 ```
-If you see error - ask Danylo.
+If you see error, ask Danylo.
+
+4. **Create `.env` file.**
+Create a `.env` file in the root directory to store sensitive data. Request the necessary credentials from Danylo and paste them into the file.
+
+5. **Initialize Database.**
+Ensure Docker is running on your machine. In the console, while being in the root of the project, run the following command:
+```bash
+docker-compose up -d
+```
 
 ## Running the Bot
 
 Down here it is described how to run the bot on your machine.
 
 1. **Change working directory.** 
-Navigate to a location of a root of the project in your console.
+Navigate to the root directory of the project in your console.
 
 2. **Create a Virtual Environment.**
-Write the following command in the console to create a Virtual Environment:
+Run the following command in the console to create a Virtual Environment:
 ```bash
 python -m venv .venv
 ```
 
 3. **Activate the Virtual Environment.**
-Write the following command to activate the Virtual Environment:
+Run one of the following commands to activate the Virtual Environment:
 
 For Windows:
 ```bash
@@ -56,7 +66,7 @@ source .venv/bin/activate
 ```
 
 4. **Installation of Project's Dependencies.**
-To isntall project's libraries and dependencies, write the following command in the console:
+To install project dependencies, write the following command in the console:
 ```bash
 poetry install
 ```
@@ -69,16 +79,16 @@ python main.py
 
 ## Structure of the Project
 
-There are described what are the packages in the project's repository.
+Below is an overview of the project's packages.
 
 - **Database Package**  
-  It is where all configurations and relations with database are located.
+  Contains all database configurations and interactions.
 
-- **Fucntionalities Package**  
-  It is where all base fucntionalities of the bot are located.
+- **Functionalities Package**  
+  Contains all functionalities of the bot.
 
 - **Menu Package**  
-  It is where menu of the bot is described.
+  Contains the bot’s menu logic.
 
 
 ## Branching Strategy
