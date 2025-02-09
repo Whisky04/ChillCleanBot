@@ -12,6 +12,33 @@ db_params = {
     'port': os.getenv('DB_PORT')
 }
 
+def create_table_if_not_exists():
+    """Create the users table if it does not already exist."""
+    try:
+        connection = psycopg2.connect(**db_params)
+        cursor = connection.cursor()
+
+        create_table_query = """
+        CREATE TABLE IF NOT EXISTS users (
+            user_id INT PRIMARY KEY,
+            user_name VARCHAR(100),
+            user_week INT[],
+            user_is_admin BOOLEAN
+        );
+        """
+        cursor.execute(create_table_query)
+        connection.commit()
+        print("Table 'users' has been created or already exists.")
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+    finally:
+        if 'cursor' in locals():
+            cursor.close()
+        if 'connection' in locals():
+            connection.close()
+            
 def is_user_in_database(user_id: int) -> bool:
     """Check if a user exists in the database by their ID and log the result."""
     try:

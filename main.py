@@ -18,6 +18,7 @@ from Functionalities.authentication import (
     get_telegram_user_id_in_database,
     get_check_user_is_admin,
 )
+from Database.database_utils import create_table_if_not_exists
 
 async def run_bot(application: Application):
     """
@@ -126,6 +127,8 @@ async def main_async():
     if not BOT_TOKEN:
         raise ValueError("Bot token is missing. Set BOT_TOKEN in the .env file.")
 
+    create_table_if_not_exists()
+    
     # Build the telegram application
     bot = MainBot(BOT_TOKEN)
     bot.build_application()
