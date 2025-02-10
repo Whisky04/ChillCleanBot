@@ -1,6 +1,9 @@
 from telegram import KeyboardButton, ReplyKeyboardMarkup, Update
 from telegram.ext import CallbackContext
 
+from Functionalities.AddNewUser import AddNewUser
+from Functionalities.DeleteExistingUser import DeleteExistingUser
+
 class Main_Menu:
     """Class to handle the main menu for both casual users and admins."""
 
@@ -58,8 +61,15 @@ class Main_Menu:
         elif user_text == "Get Back to Main Menu":
             await Main_Menu.start(update, context, user_is_admin)
         elif user_text == "Add a New User" and user_is_admin:
-            await update.message.reply_text("Admin: Enter the new user's details.")
+            await AddNewUser.start(update, context)  # Call AddNewUser
         elif user_text == "Delete Existing User" and user_is_admin:
-            await update.message.reply_text("Admin: Enter the username of the user to delete.")
+            await DeleteExistingUser.start(update, context)  # Call DeleteExistingUser
         elif user_text == "Make an Announcement" and user_is_admin:
             await update.message.reply_text("Admin: Type your announcement to send to all users.")
+
+        # Check if awaiting input for adding a new user
+        elif context.user_data.get("awaiting_new_user", False):
+            await AddNewUser.process_new_user(update, context)
+        # Check if awaiting input for deleting a user
+        elif context.user_data.get("awaiting_delete_user", False):
+            await DeleteExistingUser.process_delete_user(update, context)

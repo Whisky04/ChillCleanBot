@@ -112,3 +112,70 @@ def is_user_admin(user_id: int) -> bool:
             cursor.close()
         if 'connection' in locals():
             connection.close()
+
+def add_new_user(user_id: int, user_name: str) -> bool:
+    """Adds a new user to the database."""
+    try:
+        connection = psycopg2.connect(**db_params)
+        cursor = connection.cursor()
+
+        # Check if user already exists
+        cursor.execute("SELECT user_id FROM users WHERE user_id = %s;", (user_id,))
+        if cursor.fetchone():
+            print(f"⚠️ User {user_id} already exists in the database.")
+            return False
+
+        # Insert new user
+        insert_query = """
+        INSERT INTO users (user_id, user_name, user_week, user_is_admin)
+        VALUES (%s, %s, ARRAY[]::INTEGER[], FALSE);
+        """
+        cursor.execute(insert_query, (user_id, user_name))
+        connection.commit()
+
+        print(f"✅ User {user_name} (ID: {user_id}) added successfully.")
+        return True
+
+    except Exception as e:
+        print(f"❌ Error adding user: {e}")
+        return False
+
+    finally:
+        if 'cursor' in locals():
+            cursor.close()
+        if 'connection' in locals():
+            connection.close()
+
+def delete_existing_user(user_id: int) -> tuple[bool, str | None]:
+    """Deletes a user from the database and returns the username if successful."""
+    try:
+        connection = psycopg2.connect(**db_params)
+        cursor = connection.cursor()
+
+        # Check if user exists before deleting
+        cursor.execute("SELECT user_name FROM users WHERE user_id = %s;", (user_id,))
+        result = cursor.fetchone()
+        
+        if not result:
+            print(f"⚠️ User {user_id} does not exist in the database.")
+            return False, None  # User not found
+        
+        user_name = result[0]  # Get username
+        
+        # Delete user
+        delete_query = "DELETE FROM users WHERE user_id = %s;"
+        cursor.execute(delete_query, (user_id,))
+        connection.commit()
+
+        print(f"✅ User '{user_name}' (ID: {user_id}) has been successfully deleted.")
+        return True, user_name  # Return success and username
+
+    except Exception as e:
+        print(f"❌ Error deleting user: {e}")
+        return False, None  # Return failure
+
+    finally:
+        if 'cursor' in locals():
+            cursor.close()
+        if 'connection' in locals():
+            connection.close()

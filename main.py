@@ -16,7 +16,7 @@ from telegram.ext import (
 from telegram import Update, ReplyKeyboardRemove
 
 from Menu.main_menu import Main_Menu
-from Functionalities.authentication import (
+from Functionalities.Authentication import (
     get_telegram_user_id_in_database,
     get_check_user_is_admin,
 )
