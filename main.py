@@ -10,10 +10,12 @@ from telegram.ext import (
     CommandHandler,
     CallbackQueryHandler,
     CallbackContext,
+    MessageHandler, 
+    filters
 )
-from telegram import Update
+from telegram import Update, ReplyKeyboardRemove
 
-from Menu.main_menu import Casual_Main_Menu  # , Admin_Main_Menu
+from Menu.main_menu import Main_Menu
 from Functionalities.authentication import (
     get_telegram_user_id_in_database,
     get_check_user_is_admin,
@@ -56,29 +58,31 @@ class MainBot:
 
         # Register command handlers
         self.application.add_handler(CommandHandler("start", self.start_command))
-        self.application.add_handler(
-            CallbackQueryHandler(Casual_Main_Menu.button_callback)
-        )
+        
+        # Register message handler for keyboard buttons
+        self.application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, Main_Menu.handle_buttons))
 
     async def start_command(self, update: Update, context: CallbackContext) -> None:
+        """Handles the /start command, resets the menu every time without sending unnecessary text."""
         user_exists = await get_telegram_user_id_in_database(update, context)
-        # Check if the user has admin privileges
         user_is_admin = await get_check_user_is_admin(update, context)
 
         if user_exists:
-            if user_is_admin:
-                # Show admin_user main menu
-                # Await Admin_Main_Menu.start(update, context)
-                await update.message.reply_text("You are logged as administrator.")
-            else: 
-                # Show casual_user main menu
-                await Casual_Main_Menu.start(update, context)
+            context.user_data["is_admin"] = user_is_admin
+
+            try:
+                await update.message.edit_text("Restarting Menu...", reply_markup=ReplyKeyboardRemove())
+                await asyncio.sleep(0.1)  
+                await update.message.delete()
+            except Exception:
+                pass  # Ignore errors in case the message cannot be edited
+
+            await Main_Menu.start(update, context, user_is_admin=user_is_admin)
         else:
-            # Show authentication error
             await update.message.reply_text(
                 "You are not an authenticated user. Contact Danylo (@Whiskiess) for access."
             )
-
+        
 async def check_code_syntax() -> bool:
     """
     Checks if there are any syntax errors in the project by compiling all .py files.
