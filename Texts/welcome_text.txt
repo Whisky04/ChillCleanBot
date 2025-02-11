@@ -1,0 +1,11 @@
+Welcome!
+You have been accessed to use of ChillClean Bot. 🎉
+So, write "/start" or start the bot through "Menu" tab on the left, and you will be able to use the bot's features and track your week of cleaning. 😊
+
+A little bit about the bot's functionality:
+📌You have a possibility to check when is your next week of cleaning using "Check my week" fucntionality in Main Menu.
+📌To check a general schedule, with other one's weeks shown, use "See whole schedule" fucntionality in Main Menu.
+📌Functionality "Change weeks with another user" gives a possibility to exchange selected weeks with a wanted user/neighbor. It is used in case if you are not able to clean the block on some week.
+📌In "Other" tab there are presented rules of the block and cleaning duties.
+
+‼️ Set yourself a name, which is going to be shown in tables, following "Other" > "Set My Real Name"
