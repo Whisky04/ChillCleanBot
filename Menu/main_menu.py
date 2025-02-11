@@ -4,6 +4,7 @@ from telegram.ext import CallbackContext
 from Functionalities.ShowRules import ShowRules
 from Functionalities.AddNewUser import AddNewUser
 from Functionalities.DeleteExistingUser import DeleteExistingUser
+from Functionalities.SetRealName import SetRealName
 
 class Main_Menu:
     """Class to handle the main menu for both casual users and admins."""
@@ -32,6 +33,7 @@ class Main_Menu:
 
         keyboard = [
             [KeyboardButton("Rules of our Block and Cleaning Duties")],
+            [KeyboardButton("Set My Real Name")],
             [KeyboardButton("Get Back to Main Menu")]
         ]
 
@@ -60,6 +62,8 @@ class Main_Menu:
             await Main_Menu.show_other_menu(update, context)
         elif user_text == "Rules of our Block and Cleaning Duties":
             await ShowRules.show_rules(update, context)  # Call ShowRules function
+        elif user_text == "Set My Real Name":
+            await SetRealName.start(update, context) # Call SetRealName function
         elif user_text == "Get Back to Main Menu":
             await Main_Menu.start(update, context, user_is_admin)
         elif user_text == "Add a New User" and user_is_admin:
@@ -77,3 +81,6 @@ class Main_Menu:
         # Check if awaiting input for deleting a user
         elif context.user_data.get("awaiting_delete_user", False):
             await DeleteExistingUser.process_delete_user(update, context)
+        # Check if awaiting input for setting a real name
+        elif context.user_data.get("awaiting_real_name", False):
+            await SetRealName.process_real_name(update, context)

@@ -204,3 +204,33 @@ def delete_existing_user(user_id: int) -> tuple[bool, str | None]:
             cursor.close()
         if 'connection' in locals():
             connection.close()
+
+def set_real_name(user_id: int, real_name: str) -> bool:
+    """Updates a user's real name in the database."""
+    try:
+        connection = psycopg2.connect(**db_params)
+        cursor = connection.cursor()
+
+        # Check if user exists before updating
+        cursor.execute("SELECT user_id FROM users WHERE user_id = %s;", (user_id,))
+        if not cursor.fetchone():
+            print(f"Error Database: User {user_id} does not exist in the database.")
+            return False
+
+        # Update real name
+        update_query = "UPDATE users SET real_user_name = %s WHERE user_id = %s;"
+        cursor.execute(update_query, (real_name, user_id))
+        connection.commit()
+
+        print(f"User ID {user_id} updated their real name to: {real_name}")
+        return True
+
+    except Exception as e:
+        print(f"Error Database: updating real name for user {user_id}: {e}")
+        return False
+
+    finally:
+        if 'cursor' in locals():
+            cursor.close()
+        if 'connection' in locals():
+            connection.close()
