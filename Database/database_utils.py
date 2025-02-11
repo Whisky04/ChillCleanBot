@@ -122,7 +122,7 @@ def add_new_user(user_id: int, user_name: str) -> bool:
         # Check if user already exists
         cursor.execute("SELECT user_id FROM users WHERE user_id = %s;", (user_id,))
         if cursor.fetchone():
-            print(f"⚠️ User {user_id} already exists in the database.")
+            print(f"Warning: User {user_id} already exists in the database.")
             return False
 
         # Insert new user
@@ -133,11 +133,11 @@ def add_new_user(user_id: int, user_name: str) -> bool:
         cursor.execute(insert_query, (user_id, user_name))
         connection.commit()
 
-        print(f"✅ User {user_name} (ID: {user_id}) added successfully.")
+        print(f"User {user_name} (ID: {user_id}) added successfully.")
         return True
 
     except Exception as e:
-        print(f"❌ Error adding user: {e}")
+        print(f"Error Database: error while adding user: {e}")
         return False
 
     finally:
@@ -157,7 +157,7 @@ def delete_existing_user(user_id: int) -> tuple[bool, str | None]:
         result = cursor.fetchone()
         
         if not result:
-            print(f"⚠️ User {user_id} does not exist in the database.")
+            print(f"Warning: User {user_id} does not exist in the database.")
             return False, None  # User not found
         
         user_name = result[0]  # Get username
@@ -167,11 +167,11 @@ def delete_existing_user(user_id: int) -> tuple[bool, str | None]:
         cursor.execute(delete_query, (user_id,))
         connection.commit()
 
-        print(f"✅ User '{user_name}' (ID: {user_id}) has been successfully deleted.")
+        print(f"User '{user_name}' (ID: {user_id}) has been successfully deleted.")
         return True, user_name  # Return success and username
 
     except Exception as e:
-        print(f"❌ Error deleting user: {e}")
+        print(f"Error Database: Error while deleting user: {e}")
         return False, None  # Return failure
 
     finally:
