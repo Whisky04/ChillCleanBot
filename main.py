@@ -80,7 +80,7 @@ class MainBot:
             await Main_Menu.start(update, context, user_is_admin=user_is_admin)
         else:
             await update.message.reply_text(
-                "You are not an authenticated user. Contact Danylo (@Whiskiess) for access."
+                "❌You are not a authenticated user. Contact Danylo (@Whiskiess) for access."
             )
 
 async def main_async():
