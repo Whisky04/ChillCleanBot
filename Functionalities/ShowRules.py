@@ -14,8 +14,8 @@ class ShowRules:
 
         except FileNotFoundError:
             print("Error ShowRules: rules_of_cleaning.txt not found.")
-            await update.message.reply_text("⚠️ Error: Rules file is missing. Please contact an admin.")
+            await update.message.reply_text("⚠️ Error: Rules file is missing. Please, write to Danylo (@Whiskiess)")
 
         except Exception as e:
             print(f"Error ShowRules: reading rules file: {e}")
-            await update.message.reply_text("⚠️ An unexpected error occurred while retrieving the cleaning rules.")
+            await update.message.reply_text("⚠️ An unexpected error occurred while retrieving the cleaning rules. Please, write to Danylo (@Whiskiess)")
