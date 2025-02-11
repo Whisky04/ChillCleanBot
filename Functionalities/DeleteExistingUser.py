@@ -40,7 +40,7 @@ class DeleteExistingUser:
                     reply_markup=ReplyKeyboardRemove()
                 )
             except Exception as e:
-                print(f"❌ Could not send message to user {user_id}. They may have blocked the bot. Error: {e}")
+                print(f"Could not send message to user {user_id}. They may have blocked the bot. Error: {e}")
 
         else:
             await update.message.reply_text("❌ Error deleting user. They may not exist.")
