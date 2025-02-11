@@ -21,14 +21,14 @@ class AddNewUser:
         print(f"Received input for new user: {user_input}")
 
         if " " not in user_input:
-            await update.message.reply_text("Invalid format! Please use: `user_id username`")
+            await update.message.reply_text("⚠️ Invalid format! Please use: `user_id username`")
             return
 
         try:
             user_id, username = user_input.split(" ", 1)
             user_id = int(user_id)
         except ValueError:
-            await update.message.reply_text("Invalid user ID format! User ID must be a number.")
+            await update.message.reply_text("⚠️ Invalid user ID format! User ID must be a number.")
             return
 
         # Add new user to the database
@@ -36,8 +36,21 @@ class AddNewUser:
 
         if success:
             await update.message.reply_text(f"✅ User `{username}` (ID: `{user_id}`) has been added successfully!")
+
+            try:
+                with open("Texts/welcome_text.txt", "r", encoding="utf-8") as file:
+                    welcome_message = file.read()
+                await context.bot.send_message(
+                    chat_id=user_id,
+                    text=welcome_message
+                )
+
+            except Exception as e:
+                print(f"Error AddNewUser: Could not send message to user {user_id}. Error: {e}")
+
         else:
             await update.message.reply_text("❌ Error adding user. They may already exist.")
         
         # Clear state
         context.user_data["awaiting_new_user"] = False
+        
