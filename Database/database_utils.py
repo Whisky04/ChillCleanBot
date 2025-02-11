@@ -138,8 +138,8 @@ def is_user_admin(user_id: int) -> bool:
         if 'connection' in locals():
             connection.close()
 
-def add_new_user(user_id: int, user_name: str) -> bool:
-    """Adds a new user to the database."""
+def add_new_user(user_id: int, user_name: str, is_admin: bool) -> bool:
+    """Adds a new user to the database with admin status."""
     try:
         connection = psycopg2.connect(**db_params)
         cursor = connection.cursor()
@@ -150,15 +150,16 @@ def add_new_user(user_id: int, user_name: str) -> bool:
             print(f"Warning: User {user_id} already exists in the database.")
             return False
 
-        # Insert new user
+        # Insert new user with admin status
         insert_query = """
         INSERT INTO users (user_id, user_name, user_week, user_is_admin)
-        VALUES (%s, %s, ARRAY[]::INTEGER[], FALSE);
+        VALUES (%s, %s, ARRAY[]::INTEGER[], %s);
         """
-        cursor.execute(insert_query, (user_id, user_name))
+        cursor.execute(insert_query, (user_id, user_name, is_admin))
         connection.commit()
 
-        print(f"User {user_name} (ID: {user_id}) added successfully.")
+        admin_status = "Admin" if is_admin else "Casual User"
+        print(f"User {user_name} (ID: {user_id}) added successfully as {admin_status}.")
         return True
 
     except Exception as e:
