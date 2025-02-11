@@ -23,7 +23,7 @@ class Main_Menu:
         if user_is_admin is not None:
             context.user_data["is_admin"] = user_is_admin
             
-        await update.message.reply_text("Choose an Option in Main Menu", reply_markup=reply_markup)
+        await update.message.reply_text("Choose an Option in Main Menu.", reply_markup=reply_markup)
 
     @staticmethod
     async def show_other_menu(update: Update, context: CallbackContext) -> None:
@@ -31,7 +31,7 @@ class Main_Menu:
         user_is_admin = context.user_data.get("is_admin", None)
 
         keyboard = [
-            [KeyboardButton("Rules of Cleaning")],
+            [KeyboardButton("Rules of our Block and Cleaning Duties")],
             [KeyboardButton("Get Back to Main Menu")]
         ]
 
@@ -58,7 +58,7 @@ class Main_Menu:
             await update.message.reply_text("Enter the username of the person you want to swap weeks with.")
         elif user_text == "Other":
             await Main_Menu.show_other_menu(update, context)
-        elif user_text == "Rules of Cleaning":
+        elif user_text == "Rules of our Block and Cleaning Duties":
             await ShowRules.show_rules(update, context)  # Call ShowRules function
         elif user_text == "Get Back to Main Menu":
             await Main_Menu.start(update, context, user_is_admin)

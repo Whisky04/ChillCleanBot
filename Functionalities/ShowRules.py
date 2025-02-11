@@ -8,7 +8,7 @@ class ShowRules:
     async def show_rules(update: Update, context: CallbackContext) -> None:
         """Reads the cleaning rules from a text file and sends them to the user."""
         try:
-            with open("Texts/rules_of_cleaning.txt", "r", encoding="utf-8") as file:
+            with open("Texts/rules.txt", "r", encoding="utf-8") as file:
                 rules_text = file.read()
             await update.message.reply_text(rules_text)
 
