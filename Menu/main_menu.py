@@ -1,6 +1,7 @@
 from telegram import KeyboardButton, ReplyKeyboardMarkup, Update
 from telegram.ext import CallbackContext
 
+from Functionalities.ShowRules import ShowRules
 from Functionalities.AddNewUser import AddNewUser
 from Functionalities.DeleteExistingUser import DeleteExistingUser
 
@@ -58,7 +59,7 @@ class Main_Menu:
         elif user_text == "Other":
             await Main_Menu.show_other_menu(update, context)
         elif user_text == "Rules of Cleaning":
-            await update.message.reply_text("Here are the cleaning rules: [rules here].")
+            await ShowRules.show_rules(update, context)  # Call ShowRules function
         elif user_text == "Get Back to Main Menu":
             await Main_Menu.start(update, context, user_is_admin)
         elif user_text == "Add a New User" and user_is_admin:
