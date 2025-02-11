@@ -13,26 +13,51 @@ db_params = {
 }
 
 def create_table_if_not_exists():
-    """Create the users table if it does not already exist."""
+    """Create the users table if it does not already exist and check for missing columns."""
     try:
         connection = psycopg2.connect(**db_params)
         cursor = connection.cursor()
 
+        # Ensure the table exists
         create_table_query = """
         CREATE TABLE IF NOT EXISTS users (
             user_id INT PRIMARY KEY,
             user_name VARCHAR(100),
+            real_user_name VARCHAR(100),
             user_week INT[],
             user_is_admin BOOLEAN
         );
         """
         cursor.execute(create_table_query)
         connection.commit()
-        print("Table 'users' has been created or already exists.")
-
+        print("Database Check: Table 'users' exists or has been created.")
+        
+        # Define required columns and their types
+        required_columns = {
+            "user_id": "INT PRIMARY KEY",
+            "user_name": "VARCHAR(100)",
+            "real_user_name": "VARCHAR(100)",
+            "user_week": "INT[]",
+            "user_is_admin": "BOOLEAN"
+        }
+        
+        # Get existing columns
+        cursor.execute("SELECT column_name FROM information_schema.columns WHERE table_name = 'users';")
+        existing_columns = {row[0] for row in cursor.fetchall()}
+        
+        # Check for missing columns and add them
+        for column, column_type in required_columns.items():
+            if column not in existing_columns:
+                alter_query = f"ALTER TABLE users ADD COLUMN {column} {column_type};"
+                cursor.execute(alter_query)
+                connection.commit()
+                print(f"Added missing column: {column} ({column_type})")
+            else:
+                print(f"Database Check: Column '{column}' exists.")
+    
     except Exception as e:
-        print(f"An error occurred: {e}")
-
+        print(f"Error Database: {e}")
+    
     finally:
         if 'cursor' in locals():
             cursor.close()
