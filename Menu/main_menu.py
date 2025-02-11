@@ -37,7 +37,8 @@ class Main_Menu:
         if user_is_admin:
             keyboard.insert(0, [KeyboardButton("Add a New User")])
             keyboard.insert(1, [KeyboardButton("Delete Existing User")])
-            keyboard.insert(2, [KeyboardButton("Make an Announcement")])
+            keyboard.insert(2, [KeyboardButton("Change Weeks Between Selected Users")])
+            keyboard.insert(3, [KeyboardButton("Make an Announcement")])
 
         reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True, one_time_keyboard=False)
         await update.message.reply_text("Other Options presented.", reply_markup=reply_markup)
@@ -64,6 +65,8 @@ class Main_Menu:
             await AddNewUser.start(update, context)  # Call AddNewUser
         elif user_text == "Delete Existing User" and user_is_admin:
             await DeleteExistingUser.start(update, context)  # Call DeleteExistingUser
+        elif user_text == "Change Weeks Between Selected Users" and user_is_admin:
+            await update.message.reply_text("Admin: Select Users and Their Weeks")
         elif user_text == "Make an Announcement" and user_is_admin:
             await update.message.reply_text("Admin: Type your announcement to send to all users.")
 
